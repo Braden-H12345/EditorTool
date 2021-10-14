@@ -13,4 +13,9 @@ public class GeneralData : ScriptableObject
     [SerializeField] [Range(0, 10)] int _stamina;
     [SerializeField] [Range(0, 10)] int _luck;
     [SerializeField] [Range(0, 10)] int _charisma;
+
+    [SerializeField] public AbilityData _abilityOne;
+    [SerializeField] public AbilityData _abilityTwo;
+    [SerializeField] public AbilityData _abilityThree;
+    [SerializeField] public AbilityData _abilityFour;
 }

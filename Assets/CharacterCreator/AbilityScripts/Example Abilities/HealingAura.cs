@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AOEAbility : MonoBehaviour, IAbility
+public class HealingAura : MonoBehaviour
 {
-
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +14,5 @@ public class AOEAbility : MonoBehaviour, IAbility
     void Update()
     {
         
-    }
-
-    public void Cast(float radius, float effectAmount, float duration)
-    {
-
     }
 }

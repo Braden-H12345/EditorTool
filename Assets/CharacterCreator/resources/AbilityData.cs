@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class AbilityData : ScriptableObject
 {
-    [SerializeField] string _abilityName;
+    [SerializeField] public string _abilityName;
     [SerializeField] string _description;
     [SerializeField] float _cost;
     [SerializeField] float _cooldown;
+    [SerializeField] KeyCode _keyToUse;
 }
