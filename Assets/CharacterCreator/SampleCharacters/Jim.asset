@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5ec131d49a766d49a679233656059ab, type: 3}
-  m_Name: New Character
+  m_Name: Jim
   m_EditorClassIdentifier: 
   _name: Jim
   _raceType: Human
@@ -19,7 +19,7 @@ MonoBehaviour:
   _stamina: 5
   _luck: 5
   _charisma: 5
-  _abilityOne: {fileID: 0}
-  _abilityTwo: {fileID: 0}
-  _abilityThree: {fileID: 0}
-  _abilityFour: {fileID: 0}
+  _abilityOne: {fileID: 11400000, guid: cbe9cf1baaada8241937be148bfbb52c, type: 2}
+  _abilityTwo: {fileID: 11400000, guid: 7b78076eb069eb346a02b4751da231d9, type: 2}
+  _abilityThree: {fileID: 11400000, guid: b0a20482996a7204ba114fcdfa65db8f, type: 2}
+  _abilityFour: {fileID: 11400000, guid: 7659bf52dd2ca2646b39d723a5fe0cf6, type: 2}

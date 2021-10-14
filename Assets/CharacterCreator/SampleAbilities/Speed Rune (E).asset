@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 227999a05402db14a9a99400345189e1, type: 3}
-  m_Name: Speed Rune
+  m_Name: Speed Rune (E)
   m_EditorClassIdentifier: 
   _abilityName: Speed Rune
   _description: Increase movement speed for a small duration
