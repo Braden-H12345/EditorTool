@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Mobility Ability", menuName = "Abilities/Mobility")]
 public class MobilityData : AbilityData
 {
-    [SerializeField] float _maxDistance;
-    [SerializeField] float _speed;
+    [SerializeField] public float _maxDistance;
+    [SerializeField] public float _speed;
 }

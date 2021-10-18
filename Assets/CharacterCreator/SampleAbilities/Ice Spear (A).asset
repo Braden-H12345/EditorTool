@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5629ce76dda6748ad04b2666f21242, type: 3}
   m_Name: Ice Spear (A)
   m_EditorClassIdentifier: 
+  _abilityType: 1
   _abilityName: Ice Spear
   _description: Throws a spear of ice at the targeted enemy
   _cost: 50

@@ -17,3 +17,29 @@ Example naming format:
 Ability Name: Example Ability
 Script Name: ExampleAbility.cs
 *****
+
+
+--------------------------------------------------------
+
+IF MANUALLY CREATING CHARACTER:
+
+You can also manually create character without using the editor tool!
+
+Right click in Assets wherever you want to create it and select "Create/New Character"
+
+To create abilities to use"Create/Abilities/xxx" then select your desired type!
+
+NOTE: IF DOING THIS YOU MUST THEN CREATE THE SCRIPTS MANUALLY! THEY WILL NOT BE AUTOCREATED VIA THE TOOL
+Simply follow the above naming format and it will work perfectly!
+
+--------------------------------------------------------
+
+SAMPLE ABILITIES:
+
+NOTE: Most of these abilities do not work as one would think. They are simple lines of code to display that something is
+actually happening in the scene!
+
+NAMING CONVENTION: The letter in parenthesis is the KeyCode mapped to that ability.
+
+Be sure when naming abilities to only put alpha-numerical characters! No special characters should be used
+Typing out numbers is recommended!

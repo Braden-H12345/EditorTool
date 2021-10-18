@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b293c48cee14564aa72b2f42e17b99c, type: 3}
   m_Name: Dash (B)
   m_EditorClassIdentifier: 
+  _abilityType: 3
   _abilityName: Dash
   _description: Dashes a short distance
   _cost: 25

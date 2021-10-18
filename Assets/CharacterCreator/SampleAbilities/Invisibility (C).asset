@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227999a05402db14a9a99400345189e1, type: 3}
   m_Name: Invisibility (C)
   m_EditorClassIdentifier: 
+  _abilityType: 2
   _abilityName: Invisibility
   _description: 'Go invisible for a short period of time '
   _cost: 60
