@@ -13,13 +13,8 @@ MonoBehaviour:
   m_Name: Jim
   m_EditorClassIdentifier: 
   _name: Jim
-  _raceType: Human
-  _strength: 5
-  _magic: 5
-  _stamina: 5
-  _luck: 5
-  _charisma: 5
+  _race: 0
   _abilityOne: {fileID: 11400000, guid: cbe9cf1baaada8241937be148bfbb52c, type: 2}
   _abilityTwo: {fileID: 11400000, guid: 7b78076eb069eb346a02b4751da231d9, type: 2}
-  _abilityThree: {fileID: 11400000, guid: b0a20482996a7204ba114fcdfa65db8f, type: 2}
+  _abilityThree: {fileID: 11400000, guid: 483e542803c04714f91ffbea5b46a3d3, type: 2}
   _abilityFour: {fileID: 11400000, guid: 7659bf52dd2ca2646b39d723a5fe0cf6, type: 2}

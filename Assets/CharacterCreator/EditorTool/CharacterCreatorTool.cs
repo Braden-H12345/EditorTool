@@ -20,6 +20,38 @@ public class CharacterCreatorTool : EditorWindow
     static AbilityData _abilityThree;
     static AbilityData _abilityFour;
 
+    public static AbilityData AbilityOneInfo
+    {
+        get
+        {
+            return _abilityOne;
+        }
+    }
+
+    public static AbilityData AbilityTwoInfo
+    {
+        get
+        {
+            return _abilityTwo;
+        }
+    }
+
+    public static AbilityData AbilityThreeInfo
+    {
+        get
+        {
+            return _abilityThree;
+        }
+    }
+
+    public static AbilityData AbilityFourInfo
+    {
+        get
+        {
+            return _abilityFour;
+        }
+    }
+
 
     [MenuItem("Window/Character Creator")]
     static void OpenWindow()
@@ -272,11 +304,6 @@ public class AbilitySettings : EditorWindow
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Radius");
                 _AOEData._radius = EditorGUILayout.FloatField(_AOEData._radius);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Damage or heal amount");
-                _AOEData._effectAmount = EditorGUILayout.FloatField(_AOEData._effectAmount);
                 GUILayout.EndHorizontal();
 
                 GUILayout.BeginHorizontal();
@@ -938,6 +965,7 @@ public class AbilitySettings : EditorWindow
                 if(GUILayout.Button("Create and Save Character!", GUILayout.Height(30)))
                 {
                     CreateAssets();
+                    window.Close();
                 }
 
                 GUILayout.EndVertical();
@@ -948,6 +976,110 @@ public class AbilitySettings : EditorWindow
 
     void CreateAssets()
     {
+        string prefabToUsePath;
 
+        string newPath = "Assets/prefabs/";
+
+        string dataPath = "Assets/CharacterCreator/resources/";
+        string dataPathTwo = "Assets/CharacterCreator/resources/";
+        string dataPathThree = "Assets/CharacterCreator/resources/";
+        string dataPathFour = "Assets/CharacterCreator/resources/";
+
+        switch (_abilityOneSetting)
+        {
+            case AbilityTypes.PROJECTILE:
+                ScriptWriter.Write(_projData._abilityName, AbilityTypes.PROJECTILE);
+                dataPath += "Projectile/" + _projData._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_projData, dataPath);
+                break;
+
+            case AbilityTypes.AOE:
+                dataPath += "AOE/" + _AOEData._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_AOEData, dataPath);
+                break;
+
+            case AbilityTypes.MOBILITY:
+                dataPath += "Mobility/" + _mobileData._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_mobileData, dataPath);
+                break;
+
+            case AbilityTypes.SELFBUFF:
+                dataPath += "Selfbuff/" + _selfData._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_selfData, dataPath);
+                break;
+        }
+
+        switch (_abilityTwoSetting)
+        {
+            case AbilityTypes.PROJECTILE:
+                dataPathTwo += "Projectile/" + _projDataTwo._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_projDataTwo, dataPathTwo);
+                break;
+
+            case AbilityTypes.AOE:
+                dataPathTwo += "AOE/" + _AOEDataTwo._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_AOEDataTwo, dataPathTwo);
+                break;
+
+            case AbilityTypes.MOBILITY:
+                dataPathTwo += "Mobility/" + _mobileDataTwo._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_mobileDataTwo, dataPathTwo);
+                break;
+
+            case AbilityTypes.SELFBUFF:
+                dataPathTwo += "Selfbuff/" + _selfDataTwo._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_selfDataTwo, dataPathTwo);
+                break;
+        }
+
+        switch (_abilityThreeSetting)
+        {
+            case AbilityTypes.PROJECTILE:
+                dataPathThree += "Projectile/" + _projDataThree._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_projDataThree, dataPathThree);
+                break;
+
+            case AbilityTypes.AOE:
+                dataPathThree += "AOE/" + _AOEDataThree._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_AOEDataThree, dataPathThree);
+                break;
+
+            case AbilityTypes.MOBILITY:
+                dataPathThree += "Mobility/" + _mobileDataThree._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_mobileDataThree, dataPathThree);
+                break;
+
+            case AbilityTypes.SELFBUFF:
+                dataPathThree += "Selfbuff/" + _selfDataThree._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_selfDataThree, dataPathThree);
+                break;
+        }
+
+        switch (_abilityFourSetting)
+        {
+            case AbilityTypes.PROJECTILE:
+                dataPathFour += "Projectile/" + _projDataFour._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_projDataFour, dataPathFour);
+                break;
+
+            case AbilityTypes.AOE:
+                dataPathFour += "AOE/" + _AOEDataFour._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_AOEDataFour, dataPathFour);
+                break;
+
+            case AbilityTypes.MOBILITY:
+                dataPathFour += "Mobility/" + _mobileDataFour._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_mobileDataFour, dataPathFour);
+                break;
+
+            case AbilityTypes.SELFBUFF:
+                dataPathFour += "Selfbuff/" + _selfDataFour._abilityName + ".asset";
+                AssetDatabase.CreateAsset(_selfDataFour, dataPathFour);
+                break;
+        }
+
+        //create character now
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 }
