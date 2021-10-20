@@ -6,7 +6,7 @@ using UnityEngine;
 public class DataHolder : MonoBehaviour
 {
     //this simply holds the data on the Character
-    [SerializeField] GeneralData _characterInfo;
+    [SerializeField] public GeneralData _characterInfo;
 
     private string _abilityOneName;
     private string _abilityTwoName;

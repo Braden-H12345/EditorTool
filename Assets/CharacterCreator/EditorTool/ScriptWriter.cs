@@ -10,7 +10,7 @@ public static class ScriptWriter
         string _find = " ";
         string _replace = "";
 
-        string _pathToScriptLocation = "Assets/CharacterCreator/AbilityScripts";
+        string _pathToScriptLocation = "Assets/CharacterCreator/Abilities";
         _abilityName = _abilityName.Replace(_find, _replace);
 
         switch (_type)

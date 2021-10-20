@@ -20,6 +20,14 @@ public class CharacterCreatorTool : EditorWindow
     static AbilityData _abilityThree;
     static AbilityData _abilityFour;
 
+
+    public static GeneralData CharacterInfo
+    {
+        get
+        {
+            return _charData;
+        }
+    }    
     public static AbilityData AbilityOneInfo
     {
         get
@@ -121,7 +129,7 @@ public class CharacterCreatorTool : EditorWindow
         GUILayout.BeginVertical();
         GUILayout.BeginHorizontal();
         GUILayout.Label("Name");
-        _charData.name = EditorGUILayout.TextField(_charData.name);
+        _charData._name = GUILayout.TextField(_charData._name);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
@@ -191,6 +199,8 @@ public class AbilitySettings : EditorWindow
     static MobilityData _mobileDataThree;
     static MobilityData _mobileDataFour;
 
+    static GeneralData _characterToMake;
+
     Rect _abilityOneRect;
     Rect _abilityTwoRect;
     Rect _abilityThreeRect;
@@ -238,7 +248,7 @@ public class AbilitySettings : EditorWindow
         _selfDataThree = (SelfAbilityData)ScriptableObject.CreateInstance(typeof(SelfAbilityData));
         _selfDataFour = (SelfAbilityData)ScriptableObject.CreateInstance(typeof(SelfAbilityData));
 
-
+        _characterToMake = (GeneralData)ScriptableObject.CreateInstance(typeof(GeneralData));
 
     }
 
@@ -976,9 +986,11 @@ public class AbilitySettings : EditorWindow
 
     void CreateAssets()
     {
-        string prefabToUsePath;
+        string prefabToUsePath = "Assets/CharacterCreator/prefabs/DoNotMove/Character.prefab";
 
-        string newPath = "Assets/prefabs/";
+        string characterPath = "Assets/CharacterCreator/prefabs/CharacterData/";
+
+        string newPath = "Assets/CharacterCreator/prefabs/Characters/";
 
         string dataPath = "Assets/CharacterCreator/resources/";
         string dataPathTwo = "Assets/CharacterCreator/resources/";
@@ -991,95 +1003,152 @@ public class AbilitySettings : EditorWindow
                 ScriptWriter.Write(_projData._abilityName, AbilityTypes.PROJECTILE);
                 dataPath += "Projectile/" + _projData._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_projData, dataPath);
+                _characterToMake._abilityOne = _projData;
                 break;
 
             case AbilityTypes.AOE:
+                ScriptWriter.Write(_AOEData._abilityName, AbilityTypes.AOE);
                 dataPath += "AOE/" + _AOEData._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_AOEData, dataPath);
+                _characterToMake._abilityOne = _AOEData;
                 break;
 
             case AbilityTypes.MOBILITY:
+                ScriptWriter.Write(_mobileData._abilityName, AbilityTypes.MOBILITY);
                 dataPath += "Mobility/" + _mobileData._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_mobileData, dataPath);
+                _characterToMake._abilityOne = _mobileData;
                 break;
 
             case AbilityTypes.SELFBUFF:
+                ScriptWriter.Write(_selfData._abilityName, AbilityTypes.SELFBUFF);
                 dataPath += "Selfbuff/" + _selfData._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_selfData, dataPath);
+                _characterToMake._abilityOne = _selfData;
                 break;
         }
 
         switch (_abilityTwoSetting)
         {
             case AbilityTypes.PROJECTILE:
+                ScriptWriter.Write(_projDataTwo._abilityName, AbilityTypes.PROJECTILE);
                 dataPathTwo += "Projectile/" + _projDataTwo._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_projDataTwo, dataPathTwo);
+                _characterToMake._abilityTwo = _projDataTwo;
+
                 break;
 
             case AbilityTypes.AOE:
+                ScriptWriter.Write(_AOEDataTwo._abilityName, AbilityTypes.AOE);
                 dataPathTwo += "AOE/" + _AOEDataTwo._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_AOEDataTwo, dataPathTwo);
+                _characterToMake._abilityTwo = _AOEDataTwo;
                 break;
 
             case AbilityTypes.MOBILITY:
+                ScriptWriter.Write(_mobileDataTwo._abilityName, AbilityTypes.MOBILITY);
                 dataPathTwo += "Mobility/" + _mobileDataTwo._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_mobileDataTwo, dataPathTwo);
+                _characterToMake._abilityTwo = _mobileDataTwo;
                 break;
 
             case AbilityTypes.SELFBUFF:
+                ScriptWriter.Write(_selfDataTwo._abilityName, AbilityTypes.SELFBUFF);
                 dataPathTwo += "Selfbuff/" + _selfDataTwo._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_selfDataTwo, dataPathTwo);
+                _characterToMake._abilityTwo = _selfDataTwo;
+
                 break;
         }
 
         switch (_abilityThreeSetting)
         {
             case AbilityTypes.PROJECTILE:
+                ScriptWriter.Write(_projDataThree._abilityName, AbilityTypes.PROJECTILE);
                 dataPathThree += "Projectile/" + _projDataThree._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_projDataThree, dataPathThree);
+                _characterToMake._abilityThree = _projDataThree;
                 break;
 
             case AbilityTypes.AOE:
+                ScriptWriter.Write(_AOEDataThree._abilityName, AbilityTypes.AOE);
                 dataPathThree += "AOE/" + _AOEDataThree._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_AOEDataThree, dataPathThree);
+                _characterToMake._abilityThree = _AOEDataThree;
                 break;
 
             case AbilityTypes.MOBILITY:
+                ScriptWriter.Write(_mobileDataThree._abilityName, AbilityTypes.MOBILITY);
                 dataPathThree += "Mobility/" + _mobileDataThree._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_mobileDataThree, dataPathThree);
+                _characterToMake._abilityThree = _mobileDataThree;
+
                 break;
 
             case AbilityTypes.SELFBUFF:
+                ScriptWriter.Write(_selfDataThree._abilityName, AbilityTypes.SELFBUFF);
                 dataPathThree += "Selfbuff/" + _selfDataThree._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_selfDataThree, dataPathThree);
+                _characterToMake._abilityThree = _selfDataThree;
+
                 break;
         }
 
         switch (_abilityFourSetting)
         {
             case AbilityTypes.PROJECTILE:
+                ScriptWriter.Write(_projDataFour._abilityName, AbilityTypes.PROJECTILE);
                 dataPathFour += "Projectile/" + _projDataFour._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_projDataFour, dataPathFour);
+                _characterToMake._abilityFour = _projDataFour;
                 break;
 
             case AbilityTypes.AOE:
+                ScriptWriter.Write(_AOEDataFour._abilityName, AbilityTypes.AOE);
                 dataPathFour += "AOE/" + _AOEDataFour._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_AOEDataFour, dataPathFour);
+                _characterToMake._abilityFour = _AOEDataFour;
+
                 break;
 
             case AbilityTypes.MOBILITY:
+                ScriptWriter.Write(_mobileDataFour._abilityName, AbilityTypes.MOBILITY);
                 dataPathFour += "Mobility/" + _mobileDataFour._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_mobileDataFour, dataPathFour);
+                _characterToMake._abilityFour = _mobileDataFour;
                 break;
 
             case AbilityTypes.SELFBUFF:
+                ScriptWriter.Write(_selfDataFour._abilityName, AbilityTypes.SELFBUFF);
                 dataPathFour += "Selfbuff/" + _selfDataFour._abilityName + ".asset";
                 AssetDatabase.CreateAsset(_selfDataFour, dataPathFour);
+                _characterToMake._abilityFour = _selfDataFour;
                 break;
         }
 
         //create character now
+        _characterToMake._name = CharacterCreatorTool.CharacterInfo._name;
+        _characterToMake._race = CharacterCreatorTool.CharacterInfo._race;
+
+        characterPath += _characterToMake._name + ".asset";
+
+        AssetDatabase.CreateAsset(_characterToMake, characterPath);
+
+
+
+        newPath += _characterToMake._name + ".prefab";
+
+
+        AssetDatabase.CopyAsset(prefabToUsePath, newPath);
+
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+
+        GameObject charPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(newPath, typeof(GameObject));
+        if(charPrefab.GetComponent<DataHolder>() == null)
+        {
+            charPrefab.AddComponent(typeof(DataHolder));
+        }
+        charPrefab.GetComponent<DataHolder>()._characterInfo = _characterToMake;
     }
 }
