@@ -1,0 +1,1 @@
+This folder is where Projectile Data (Scriptable Objects) will go

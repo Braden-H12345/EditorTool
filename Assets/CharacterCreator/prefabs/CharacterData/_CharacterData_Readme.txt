@@ -1,0 +1,1 @@
+This folder is where Character Data (Scriptable Objects) will go

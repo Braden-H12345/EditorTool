@@ -1,0 +1,1 @@
+This folder is where Projectile ability scripts will go

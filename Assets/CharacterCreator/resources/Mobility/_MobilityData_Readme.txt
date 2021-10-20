@@ -1,0 +1,1 @@
+This folder is where Mobility Data (Scriptable Objects) will go

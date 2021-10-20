@@ -1,0 +1,1 @@
+This folder is where AOE Data (Scriptable Objects) will go

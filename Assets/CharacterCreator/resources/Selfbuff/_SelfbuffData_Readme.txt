@@ -1,0 +1,1 @@
+This folder is where Selfbuff Data (Scriptable Objects) will go

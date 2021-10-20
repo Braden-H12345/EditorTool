@@ -1,0 +1,1 @@
+This folder is where Selfbuff ability scripts will go
