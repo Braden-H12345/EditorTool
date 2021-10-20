@@ -157,7 +157,12 @@ public class CharacterCreatorTool : EditorWindow
         _abilityFour._abilityType = (AbilityTypes)EditorGUILayout.EnumPopup(_abilityFour._abilityType);
         GUILayout.EndHorizontal();
 
-        if(GUILayout.Button("Create Abilities", GUILayout.Height(40)))
+
+        if (_charData._name == null || _charData._name.Length < 1)
+        {
+            EditorGUILayout.HelpBox("Character Needs a name before abilities can be created!", MessageType.Info);
+        }
+        else if(GUILayout.Button("Create Abilities", GUILayout.Height(40)))
         {
             AbilityTypes[] types = new AbilityTypes[4];
             types[0] = _abilityOne._abilityType;
@@ -166,6 +171,7 @@ public class CharacterCreatorTool : EditorWindow
             types[3] = _abilityFour._abilityType;
 
             AbilitySettings.OpenWindow(types);
+            
         }
         GUILayout.EndVertical();
         GUILayout.EndArea();
@@ -207,6 +213,11 @@ public class AbilitySettings : EditorWindow
     Rect _abilityFourRect;
 
     static AbilitySettings window;
+
+    bool _oneBool = false;
+    bool _twoBool = false;
+    bool _threeBool = false;
+    bool _fourBool = false;
 
     public static void OpenWindow(AbilityTypes[] typesArr)
     {
@@ -286,170 +297,59 @@ public class AbilitySettings : EditorWindow
         GUILayout.BeginArea(_abilityOneRect);
         switch(_abilityOneSetting)
         {
-
-
             case AbilityTypes.AOE:
                 _AOEData._abilityType = AbilityTypes.AOE;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability One (AOE)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _AOEData._abilityName = GUILayout.TextField(_AOEData._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _AOEData._description = GUILayout.TextField(_AOEData._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _AOEData._cooldown = EditorGUILayout.FloatField(_AOEData._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Radius");
-                _AOEData._radius = EditorGUILayout.FloatField(_AOEData._radius);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Damage or heal amount");
-                _AOEData._effectAmount = EditorGUILayout.FloatField(_AOEData._effectAmount);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _AOEData._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_AOEData._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawAOE(_AOEData, "One");
+                if (_AOEData._abilityName == null || _AOEData._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _oneBool = true;
+                }
                 break;
 
 
             case AbilityTypes.MOBILITY:
                 _mobileData._abilityType = AbilityTypes.MOBILITY;
-
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability One (Mobility)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _mobileData._abilityName = GUILayout.TextField(_mobileData._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _mobileData._description = GUILayout.TextField(_mobileData._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _mobileData._cooldown = EditorGUILayout.FloatField(_mobileData._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Max Distance");
-                _mobileData._maxDistance = EditorGUILayout.FloatField(_mobileData._maxDistance);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Speed");
-                _mobileData._speed = EditorGUILayout.FloatField(_mobileData._speed);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _mobileData._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_mobileData._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawMobility(_mobileData, "One");
+                if (_mobileData._abilityName == null || _mobileData._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _oneBool = true;
+                }
                 break;
 
 
             case AbilityTypes.SELFBUFF:
                 _selfData._abilityType = AbilityTypes.SELFBUFF;
-
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability One (Selfbuff)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _selfData._abilityName = GUILayout.TextField(_selfData._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _selfData._description = GUILayout.TextField(_selfData._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _selfData._cooldown = EditorGUILayout.FloatField(_selfData._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Duration");
-                _selfData._duration = EditorGUILayout.FloatField(_selfData._duration);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _selfData._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_selfData._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawSelfBuff(_selfData, "One");
+                if (_selfData._abilityName == null || _selfData._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _oneBool = true;
+                }
                 break;
 
 
             case AbilityTypes.PROJECTILE:
                 _projData._abilityType = AbilityTypes.PROJECTILE;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability One (Projectile)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _projData._abilityName = GUILayout.TextField(_projData._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _projData._description = GUILayout.TextField(_projData._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _projData._cooldown = EditorGUILayout.FloatField(_projData._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Range");
-                _projData._range = EditorGUILayout.FloatField(_projData._range);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Damage or heal amount");
-                _projData._effectAmount = EditorGUILayout.FloatField(_projData._effectAmount);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _projData._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_projData._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawProjectile(_projData, "One");
+                if (_projData._abilityName == null || _projData._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _oneBool = true;
+                }
                 break;
         }
         GUILayout.EndArea();
@@ -461,165 +361,57 @@ public class AbilitySettings : EditorWindow
 
             case AbilityTypes.AOE:
                 _AOEDataTwo._abilityType = AbilityTypes.AOE;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Two (AOE)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _AOEDataTwo._abilityName = GUILayout.TextField(_AOEDataTwo._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _AOEDataTwo._description = GUILayout.TextField(_AOEDataTwo._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _AOEDataTwo._cooldown = EditorGUILayout.FloatField(_AOEDataTwo._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Radius");
-                _AOEDataTwo._radius = EditorGUILayout.FloatField(_AOEDataTwo._radius);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Damage or heal amount");
-                _AOEDataTwo._effectAmount = EditorGUILayout.FloatField(_AOEDataTwo._effectAmount);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _AOEDataTwo._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_AOEDataTwo._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawAOE(_AOEDataTwo, "Two");
+                if (_AOEDataTwo._abilityName == null || _AOEDataTwo._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _twoBool = true;
+                }
                 break;
 
 
             case AbilityTypes.MOBILITY:
                 _mobileDataTwo._abilityType = AbilityTypes.MOBILITY;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Two (Mobility)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _mobileDataTwo._abilityName = GUILayout.TextField(_mobileDataTwo._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _mobileDataTwo._description = GUILayout.TextField(_mobileDataTwo._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _mobileDataTwo._cooldown = EditorGUILayout.FloatField(_mobileDataTwo._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Max Distance");
-                _mobileDataTwo._maxDistance = EditorGUILayout.FloatField(_mobileDataTwo._maxDistance);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Speed");
-                _mobileDataTwo._speed = EditorGUILayout.FloatField(_mobileDataTwo._speed);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _mobileDataTwo._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_mobileDataTwo._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawMobility(_mobileDataTwo, "Two");
+                if (_mobileDataTwo._abilityName == null || _mobileDataTwo._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _twoBool = true;
+                }
                 break;
 
 
             case AbilityTypes.SELFBUFF:
                 _selfDataTwo._abilityType = AbilityTypes.SELFBUFF;
-
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Two (Selfbuff)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _selfDataTwo._abilityName = GUILayout.TextField(_selfDataTwo._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _selfDataTwo._description = GUILayout.TextField(_selfDataTwo._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _selfDataTwo._cooldown = EditorGUILayout.FloatField(_selfDataTwo._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Duration");
-                _selfDataTwo._duration = EditorGUILayout.FloatField(_selfDataTwo._duration);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _selfDataTwo._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_selfDataTwo._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawSelfBuff(_selfDataTwo, "Two");
+                if (_selfDataTwo._abilityName == null || _selfDataTwo._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _twoBool = true;
+                }
                 break;
 
 
             case AbilityTypes.PROJECTILE:
                 _projDataTwo._abilityType = AbilityTypes.PROJECTILE;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Two (Projectile)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _projDataTwo._abilityName = GUILayout.TextField(_projDataTwo._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _projDataTwo._description = GUILayout.TextField(_projDataTwo._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _projDataTwo._cooldown = EditorGUILayout.FloatField(_projDataTwo._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Range");
-                _projDataTwo._range = EditorGUILayout.FloatField(_projDataTwo._range);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Damage or heal amount");
-                _projDataTwo._effectAmount = EditorGUILayout.FloatField(_projDataTwo._effectAmount);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _projDataTwo._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_projDataTwo._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawProjectile(_projDataTwo, "Two");
+                if (_projDataTwo._abilityName == null || _projDataTwo._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _twoBool = true;
+                }
                 break;
         }
         GUILayout.EndArea();
@@ -629,165 +421,58 @@ public class AbilitySettings : EditorWindow
         {
             case AbilityTypes.AOE:
                 _AOEDataThree._abilityType = AbilityTypes.AOE;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Three (AOE)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _AOEDataThree._abilityName = GUILayout.TextField(_AOEDataThree._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _AOEDataThree._description = GUILayout.TextField(_AOEDataThree._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _AOEDataThree._cooldown = EditorGUILayout.FloatField(_AOEDataThree._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Radius");
-                _AOEDataThree._radius = EditorGUILayout.FloatField(_AOEDataThree._radius);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Damage or heal amount");
-                _AOEDataThree._effectAmount = EditorGUILayout.FloatField(_AOEDataThree._effectAmount);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _AOEDataThree._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_AOEDataThree._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawAOE(_AOEDataThree, "Three");
+                if (_AOEDataThree._abilityName == null || _AOEDataThree._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _threeBool = true;
+                }
                 break;
 
 
             case AbilityTypes.MOBILITY:
                 _mobileDataThree._abilityType = AbilityTypes.MOBILITY;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Three (Mobility)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _mobileDataThree._abilityName = GUILayout.TextField(_mobileDataThree._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _mobileDataThree._description = GUILayout.TextField(_mobileDataThree._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _mobileDataThree._cooldown = EditorGUILayout.FloatField(_mobileDataThree._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Max Distance");
-                _mobileDataThree._maxDistance = EditorGUILayout.FloatField(_mobileDataThree._maxDistance);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Speed");
-                _mobileDataThree._speed = EditorGUILayout.FloatField(_mobileDataThree._speed);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _mobileDataThree._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_mobileDataThree._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawMobility(_mobileDataThree, "Three");
+                if (_mobileDataThree._abilityName == null || _mobileDataThree._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _threeBool = true;
+                }
                 break;
 
 
             case AbilityTypes.SELFBUFF:
                 _selfDataThree._abilityType = AbilityTypes.SELFBUFF;
-
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Three (Selfbuff)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _selfDataThree._abilityName = GUILayout.TextField(_selfDataThree._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _selfDataThree._description = GUILayout.TextField(_selfDataThree._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _selfDataThree._cooldown = EditorGUILayout.FloatField(_selfDataThree._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Duration");
-                _selfDataThree._duration = EditorGUILayout.FloatField(_selfDataThree._duration);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _selfDataThree._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_selfDataThree._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
+                DrawSelfBuff(_selfDataThree, "Three");
+                if (_selfDataThree._abilityName == null || _selfDataThree._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _threeBool = true;
+                }
                 break;
 
 
             case AbilityTypes.PROJECTILE:
                 _projDataThree._abilityType = AbilityTypes.PROJECTILE;
-                GUILayout.BeginVertical();
+                DrawProjectile(_projDataThree, "Three");
+                if (_projDataThree._abilityName == null || _projDataThree._abilityName.Length < 1)
+                {
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
+                }
+                else
+                {
+                    _threeBool = true;
+                }
 
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Three (Projectile)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _projDataThree._abilityName = GUILayout.TextField(_projDataThree._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _projDataThree._description = GUILayout.TextField(_projDataThree._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _projDataThree._cooldown = EditorGUILayout.FloatField(_projDataThree._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Range");
-                _projDataThree._range = EditorGUILayout.FloatField(_projDataThree._range);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Damage or heal amount");
-                _projDataThree._effectAmount = EditorGUILayout.FloatField(_projDataThree._effectAmount);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _projDataThree._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_projDataThree._keyToUse);
-                GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
                 break;
         }
         GUILayout.EndArea();
@@ -799,189 +484,256 @@ public class AbilitySettings : EditorWindow
 
             case AbilityTypes.AOE:
                 _AOEDataFour._abilityType = AbilityTypes.AOE;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Four (AOE)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _AOEDataFour._abilityName = GUILayout.TextField(_AOEDataFour._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _AOEDataFour._description = GUILayout.TextField(_AOEDataFour._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _AOEDataFour._cooldown = EditorGUILayout.FloatField(_AOEDataFour._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Radius");
-                _AOEDataFour._radius = EditorGUILayout.FloatField(_AOEDataFour._radius);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Damage or heal amount");
-                _AOEDataFour._effectAmount = EditorGUILayout.FloatField(_AOEDataFour._effectAmount);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _AOEDataFour._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_AOEDataFour._keyToUse);
-                GUILayout.EndHorizontal();
-
-                if (GUILayout.Button("Create and Save Character!", GUILayout.Height(30)))
+                DrawAOE(_AOEDataFour, "Four");
+                if (_AOEDataFour._abilityName == null || _AOEDataFour._abilityName.Length < 1)
                 {
-                    CreateAssets();
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
                 }
-
-                GUILayout.EndVertical();
+                else
+                {
+                    _fourBool = true;
+                }
                 break;
 
 
             case AbilityTypes.MOBILITY:
                 _mobileDataFour._abilityType = AbilityTypes.MOBILITY;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Four (Mobility)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _mobileDataFour._abilityName = GUILayout.TextField(_mobileDataFour._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _mobileDataFour._description = GUILayout.TextField(_mobileDataFour._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _mobileDataFour._cooldown = EditorGUILayout.FloatField(_mobileDataFour._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Max Distance");
-                _mobileDataFour._maxDistance = EditorGUILayout.FloatField(_mobileDataFour._maxDistance);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Speed");
-                _mobileDataFour._speed = EditorGUILayout.FloatField(_mobileDataFour._speed);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _mobileDataFour._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_mobileDataFour._keyToUse);
-                GUILayout.EndHorizontal();
-
-                if (GUILayout.Button("Create and Save Character!", GUILayout.Height(30)))
+                DrawMobility(_mobileDataFour, "Four");
+                if (_mobileDataFour._abilityName == null || _mobileDataFour._abilityName.Length < 1)
                 {
-                    CreateAssets();
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
                 }
-
-                GUILayout.EndVertical();
+                else
+                {
+                    _fourBool = true;
+                }
                 break;
 
 
             case AbilityTypes.SELFBUFF:
                 _selfDataFour._abilityType = AbilityTypes.SELFBUFF;
-
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Four (Selfbuff)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _selfDataFour._abilityName = GUILayout.TextField(_selfDataFour._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _selfDataFour._description = GUILayout.TextField(_selfDataFour._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _selfDataFour._cooldown = EditorGUILayout.FloatField(_selfDataFour._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Duration");
-                _selfDataFour._duration = EditorGUILayout.FloatField(_selfDataFour._duration);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _selfDataFour._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_selfDataFour._keyToUse);
-                GUILayout.EndHorizontal();
-
-                if (GUILayout.Button("Create and Save Character!", GUILayout.Height(30)))
+                DrawSelfBuff(_selfDataFour, "Four");
+                if (_selfDataFour._abilityName == null || _selfDataFour._abilityName.Length < 1)
                 {
-                    CreateAssets();
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
                 }
-
-                GUILayout.EndVertical();
+                else
+                {
+                    _fourBool = true;
+                }
                 break;
 
 
             case AbilityTypes.PROJECTILE:
                 _projDataFour._abilityType = AbilityTypes.PROJECTILE;
-                GUILayout.BeginVertical();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Four (Projectile)");
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Ability Name");
-                _projDataFour._abilityName = GUILayout.TextField(_projDataFour._abilityName);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Description");
-                _projDataFour._description = GUILayout.TextField(_projDataFour._description);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Cooldown");
-                _projDataFour._cooldown = EditorGUILayout.FloatField(_projDataFour._cooldown);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Range");
-                _projDataFour._range = EditorGUILayout.FloatField(_projDataFour._range);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Damage or heal amount");
-                _projDataFour._effectAmount = EditorGUILayout.FloatField(_projDataFour._effectAmount);
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Spell Key");
-                _projDataFour._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_projDataFour._keyToUse);
-                GUILayout.EndHorizontal();
-
-                if(GUILayout.Button("Create and Save Character!", GUILayout.Height(30)))
+                DrawProjectile(_projDataFour, "Four");
+                if (_projDataFour._abilityName == null || _projDataFour._abilityName.Length < 1)
                 {
-                    CreateAssets();
-                    window.Close();
+                    EditorGUILayout.HelpBox("Each Ability needs a name before it can be created!", MessageType.Info);
                 }
-
-                GUILayout.EndVertical();
+                else
+                {
+                    _fourBool = true;
+                }
                 break;
         }
         GUILayout.EndArea();
+    }
+
+    void DrawAOE(AOEAbilityData _aoeData, string _number)
+    {
+        GUILayout.BeginVertical();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Ability "  + _number + " (AOE)");
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Ability Name");
+        _aoeData._abilityName = GUILayout.TextField(_aoeData._abilityName);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Description");
+        _aoeData._description = GUILayout.TextField(_aoeData._description);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Cooldown");
+        _aoeData._cooldown = EditorGUILayout.FloatField(_aoeData._cooldown);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Radius");
+        _aoeData._radius = EditorGUILayout.FloatField(_aoeData._radius);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Damage or heal amount");
+        _aoeData._effectAmount = EditorGUILayout.FloatField(_aoeData._effectAmount);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Spell Key");
+        _aoeData._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_aoeData._keyToUse);
+        GUILayout.EndHorizontal();
+
+
+        if (_number.Equals("Four") && _oneBool && _twoBool && _threeBool && _fourBool)
+        {
+            if (GUILayout.Button("Create and Save Character!", GUILayout.Height(30)))
+            {
+                CreateAssets();
+                window.Close();
+            }
+        }
+
+        GUILayout.EndVertical();
+    }
+
+    void DrawSelfBuff(SelfAbilityData _selfBuffData, string _number)
+    {
+        GUILayout.BeginVertical();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Ability " + _number + " (Selfbuff)");
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Ability Name");
+        _selfBuffData._abilityName = GUILayout.TextField(_selfBuffData._abilityName);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Description");
+        _selfBuffData._description = GUILayout.TextField(_selfBuffData._description);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Cooldown");
+        _selfBuffData._cooldown = EditorGUILayout.FloatField(_selfBuffData._cooldown);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Duration");
+        _selfBuffData._duration = EditorGUILayout.FloatField(_selfBuffData._duration);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Spell Key");
+        _selfBuffData._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_selfBuffData._keyToUse);
+        GUILayout.EndHorizontal();
+
+        if (_number.Equals("Four") && _oneBool && _twoBool && _threeBool && _fourBool)
+        {
+            if (GUILayout.Button("Create and Save Character!", GUILayout.Height(30)))
+            {
+                CreateAssets();
+                window.Close();
+            }
+        }
+
+        GUILayout.EndVertical();
+    }    
+    void DrawProjectile(ProjectileAbilityData _projectileData, string _number)
+    {
+        GUILayout.BeginVertical();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Ability " + _number + " (Projectile)");
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Ability Name");
+        _projectileData._abilityName = GUILayout.TextField(_projectileData._abilityName);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Description");
+        _projectileData._description = GUILayout.TextField(_projectileData._description);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Cooldown");
+        _projectileData._cooldown = EditorGUILayout.FloatField(_projectileData._cooldown);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Range");
+        _projectileData._range = EditorGUILayout.FloatField(_projectileData._range);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Damage or heal amount");
+        _projectileData._effectAmount = EditorGUILayout.FloatField(_projectileData._effectAmount);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Spell Key");
+        _projectileData._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_projectileData._keyToUse);
+        GUILayout.EndHorizontal();
+
+        if (_number.Equals("Four") && _oneBool && _twoBool && _threeBool && _fourBool)
+        {
+            if (GUILayout.Button("Create and Save Character!", GUILayout.Height(30)))
+            {
+                CreateAssets();
+                window.Close();
+            }
+        }
+
+        GUILayout.EndVertical();
+    }
+
+     void DrawMobility(MobilityData _mobilityData, string _number)
+    {
+        GUILayout.BeginVertical();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Ability " + _number + " (Mobility)");
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Ability Name");
+        _mobilityData._abilityName = GUILayout.TextField(_mobilityData._abilityName);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Description");
+        _mobilityData._description = GUILayout.TextField(_mobilityData._description);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Cooldown");
+        _mobilityData._cooldown = EditorGUILayout.FloatField(_mobilityData._cooldown);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Max Distance");
+        _mobilityData._maxDistance = EditorGUILayout.FloatField(_mobilityData._maxDistance);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Speed");
+        _mobilityData._speed = EditorGUILayout.FloatField(_mobilityData._speed);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Spell Key");
+        _mobilityData._keyToUse = (KeyCode)EditorGUILayout.EnumPopup(_mobilityData._keyToUse);
+        GUILayout.EndHorizontal();
+
+
+        if (_number.Equals("Four") && _oneBool && _twoBool && _threeBool && _fourBool)
+        {
+            if (GUILayout.Button("Create and Save Character!", GUILayout.Height(30)))
+            {
+                CreateAssets();
+                window.Close();
+            }
+        }
+
+        GUILayout.EndVertical();
     }
 
     void CreateAssets()
